@@ -55,6 +55,7 @@ def greeting():
     print("\t\t-------------------------------------------\n")
 
 greeting()
+library_books = load_library()  # Load library once at the start
 
 while True :
     Options = [
@@ -86,37 +87,28 @@ while True :
     if Selected_Option==1:
         Added_Book = add()
         print(f"{Added_Book['title']} by {Added_Book['author']} ({Added_Book['year']}) - {Added_Book['genre']} - {Added_Book["read"]}")
-        library_books = load_library()
         library_books.append(Added_Book)
         save_book(library_books)
         print("Book added Succesfully\n")
-        continue
 
 
     if Selected_Option == 2:      
-        while True:
-            library_books = load_library()
-            total = len(library_books)
-            if total == 0 :
-                print("\n\t\t📚 No books in the library yet! 📭\n")
-                break
-            else:
-                remove_book_title = input("\nEnter the title of the book to remove: ")
-                book_found = False  # Flag to check if the book exists
-                for book in library_books:
-                    if remove_book_title.lower() == book["title"].lower():  # Case insensitive match
-                        print("\n✅ Book found:")
-                        print(f"{book["title"]} by {book["author"]} ({book["year"]}) - {book["genre"]}")
-                        library_books.remove(book)
-                        save_book(library_books)
-                        print("\n📕 Book removed successfully\n")
-                        book_found = True
-                        break  # Exit loop after finding the book
-                if book_found:
-                    break  
-                if not book_found:
-                    print("\n❌ Book not found! Please check the title and try again.")
-                    continue
+        if not library_books:
+            print("\n\t\t📚 No books in the library yet! 📭\n")
+        else:
+            remove_book_title = input("\nEnter the title of the book to remove: ")
+            book_found = False  # Flag to check if the book exists
+            for book in library_books:
+                if remove_book_title.lower() == book["title"].lower():  # Case insensitive match
+                    print("\n✅ Book found:")
+                    print(f"{book["title"]} by {book["author"]} ({book["year"]}) - {book["genre"]}")
+                    library_books.remove(book)
+                    save_book(library_books)
+                    print("\n📕 Book removed successfully\n")
+                    book_found = True
+                    break  # Exit loop after finding the book
+            if not book_found:
+                print("\n❌ Book not found! Please check the title and try again.\n")
 
 
     if Selected_Option==3:
@@ -124,24 +116,19 @@ while True :
 
 
     if Selected_Option == 4:
-        library_books = load_library()    
-        total = len(library_books)
-        
-        if total == 0:
+        if not library_books:
             print("\n\t\t📚 No books in the library yet! 📭\n")
-            continue  # ✅ Instead of breaking the loop, continue to the menu
-
-        print("\n\t\t📖 Your Books in Library 📚:\n")
-        for i, book in enumerate(library_books, 1):  
-            read = "Read" if book["read"] else "Unread"
-            emoji = "✅" if book["read"] else "📖"
-            print(f"\t{i}. {book['title']} by {book['author']} ({book['year']}) - {book['genre']} - {read}{emoji}")
-        print("\n")
+        else :
+            print("\n\t\t📖 Your Books in Library 📚:\n")
+            for i, book in enumerate(library_books, 1):  
+                read = "Read" if book["read"] else "Unread"
+                emoji = "✅" if book["read"] else "📖"
+                print(f"\t{i}. {book['title']} by {book['author']} ({book['year']}) - {book['genre']} - {read}{emoji}")
+            print("\n")
 
 
     if Selected_Option==5:
         print("\n\t\t📊 Statistics 📊\n")
-        library_books = load_library()    
         total = len(library_books)
         if total == 0 :
             print("\n\t\t📚 No books in the library yet! 📭\n")

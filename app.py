@@ -57,7 +57,16 @@ def greeting():
 greeting()
 
 while True :
-    Options = ["Add a book" , "Remove a book" , "Search for a book" , "Display all books","Display statistics","Exit"]
+    Options = [
+        "Add a book 📖", 
+        "Remove a book ❌", 
+        "Search for a book 🔍", 
+        "Display all books 📚", 
+        "Display statistics 📊", 
+        "Exit 🚪",
+        "Mark a book as read ✅", 
+        "Update book details ✏️", 
+        "Sort books 🔢"] 
     for i, Option in enumerate(Options ,1 ):
         print(f"{i}- {Option}")
     # Get user input safely

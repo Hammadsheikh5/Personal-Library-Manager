@@ -64,10 +64,8 @@ while True :
         "Search for a book 🔍", 
         "Display all books 📚", 
         "Display statistics 📊", 
-        "Exit 🚪",
         "Mark a book as read ✅", 
-        "Update book details ✏️", 
-        "Sort books 🔢"] 
+        "Exit 🚪"] 
     for i, Option in enumerate(Options ,1 ):
         print(f"{i}- {Option}")
     # Get user input safely
@@ -84,7 +82,7 @@ while True :
             print("❌ Invalid input! Please enter a number.")
    
 
-    if Selected_Option==1:
+    if Selected_Option == 1:
         Added_Book = add()
         print(f"{Added_Book['title']} by {Added_Book['author']} ({Added_Book['year']}) - {Added_Book['genre']} - {Added_Book["read"]}")
         library_books.append(Added_Book)
@@ -92,7 +90,7 @@ while True :
         print("Book added Succesfully\n")
 
 
-    if Selected_Option == 2:      
+    elif Selected_Option == 2:      
         if not library_books:
             print("\n\t\t📚 No books in the library yet! 📭\n")
         else:
@@ -111,11 +109,37 @@ while True :
                 print("\n❌ Book not found! Please check the title and try again.\n")
 
 
-    if Selected_Option==3:
-        pass
+    elif Selected_Option == 3:
+        options = ["🔤 Title", "🖊️ Author"]
+        print("\n\t\t🔍 Search By : ")
+        for i, option in enumerate(options,1) :
+            print(f"\t\t{i}. {option}")
+        # print("\n")
+        while True:
+            try:
+                search_option = int(input("\nEnter Your Choices 1 or 2 : "))
+                if 1 <= search_option <= len(options):
+                    break
+                else:
+                    print("❌ Invalid choice! Please select a number 1 or 2 only.")
+            except ValueError:
+                print("❌ Invalid input! Please enter a number.")
+        
+        search_key = "title" if search_option == 1 else "author"
+        user_input = input(f"Enter the {options[search_option - 1]}: ")
+
+        for i, book in enumerate(library_books, 1):
+            if user_input.lower() == book[search_key].lower():
+                print("\n\t📚 Matching Book:")
+                read = "Read" if book["read"] else "Unread"
+                emoji = "✅" if book["read"] else "📖"
+                print(f"\n\t{i}. {book['title']} by {book['author']} ({book['year']}) - {book['genre']} - {read} {emoji}\n")
+                break
+        else:
+            print("\n❌ Book not found! Please check the input and try again.\n")
 
 
-    if Selected_Option == 4:
+    elif Selected_Option == 4:
         if not library_books:
             print("\n\t\t📚 No books in the library yet! 📭\n")
         else :
@@ -127,10 +151,9 @@ while True :
             print("\n")
 
 
-    if Selected_Option==5:
+    elif Selected_Option == 5:
         print("\n\t\t📊 Statistics 📊\n")
-        total = len(library_books)
-        if total == 0 :
+        if not library_books:
             print("\n\t\t📚 No books in the library yet! 📭\n")
         else:
             count = 0
@@ -140,14 +163,44 @@ while True :
 
             # count = sum(1 for book in library_books if book["read"]) 
             # {We also use this}
-            
+            total = len(library_books)
             percentage : float = count *100 / total
             print(f"\t\t📚 Total Books in Library: {total}")
             print(f"\t\t✅ Percentage Read: {percentage:.2f}% 📖")
         print("\n")
 
 
-    if Selected_Option==6:
+    elif Selected_Option == 6:
+        print("\n\t\t📖 Mark a Book as Read ✅\n")
+        user_title = input("🔎 Enter The Book Title : ")
+        for i, book in enumerate(library_books, 1):
+            if user_title.lower() == book["title"].lower():
+                print("\n\t📚 Matching Book:")
+                read = "Read" if book["read"] else "Unread"
+                emoji = "✅" if book["read"] else "📖"
+                print(f"\n\t{i}. {book['title']} by {book['author']} ({book['year']}) - {book['genre']} - {read} {emoji}\n")
+                if book["read"] :
+                    print("\t⚡ You have already read this book!\n")
+                    break
+                else :
+                    while True:
+                        mark_read = input("📝 Mark as Read (yes/no) : ")
+                        if mark_read.lower()=="yes":
+                            book["read"]= True
+                            save_book(library_books)
+                            print(f"\n ✅ You mark this book as read\n")
+                            break
+                        elif mark_read.lower() == "no":
+                            print("\n❌ Book was not marked as read.\n")
+                            break
+                        else:
+                            print("\n⚠️ Invalid input! Please enter 'yes' or 'no'.\n")
+                    break
+        else:
+            print("\n❌ Book not found! Please check the input and try again.\n")        
+                
+
+    elif Selected_Option == 7:
         print("\n\t\t📚 Library saved to file successfully! ✅")
         print("\t\t----------------------------------------")
         print("\t\t💡 Tip: Keep reading and exploring new books! 📖")

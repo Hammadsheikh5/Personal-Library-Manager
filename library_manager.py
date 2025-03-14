@@ -2,7 +2,7 @@ import os
 import json
 
 # File where the library data is stored
-LIBRARY = "library.json"
+LIBRARY = "library.txt"
 
 def load_library():
     """Loads the library data from the JSON file. If the file doesn't exist, returns an empty list."""

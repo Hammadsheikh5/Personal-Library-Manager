@@ -7,6 +7,13 @@
         "read": false
     },
     {
+        "title": "1984",
+        "author": "George Orwell",
+        "year": 1949,
+        "genre": "Dystopian",
+        "read": false
+    },
+    {
         "title": "The Great Gatsby",
         "author": "F. Scott Fitzgerald",
         "year": 1925,
@@ -18,7 +25,7 @@
         "author": "J.R.R. Tolkien",
         "year": 1937,
         "genre": "Fantasy",
-        "read": true
+        "read": false
     },
     {
         "title": "The Catcher in the Rye",
@@ -26,12 +33,5 @@
         "year": 1951,
         "genre": "Literary Fiction",
         "read": false
-    },
-    {
-        "title": "1984",
-        "author": "George Orwell",
-        "year": 1949,
-        "genre": "Dystopian",
-        "read": true
     }
 ]
